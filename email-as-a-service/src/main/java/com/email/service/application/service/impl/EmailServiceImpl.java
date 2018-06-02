@@ -38,7 +38,7 @@ public class EmailServiceImpl implements EmailService {
 	private Environment env;
 
 	@Autowired
-	SmtpHandler smtpHandler;
+	private SmtpHandler smtpHandler;
 
 	@Override
 	public EmailResponse sendEmail(EmailRequest emailRequest, ScopedSpan span) {
