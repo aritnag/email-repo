@@ -10,7 +10,8 @@
 	
 
 	<modules>
-		<module>email-as-a-service</module>
+		
 		<module>email-support</module>
+		<module>email-as-a-service</module>
 	</modules>
 </project>
