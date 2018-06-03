@@ -1,0 +1,33 @@
+package com.email.service.application.test.cases;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+
+import org.junit.Test;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import com.email.service.application.BaseAPITest;
+
+public class EmailServiceApplicationTest extends BaseAPITest {
+	private static final String EMAIL_URL_SEND = "/email/send/mail";
+	
+	@Test
+	public void testSendAndSaveEmail() throws Exception {
+		String requestJSON = fetchJSONFileContentAsString(
+				DATA_FOLDER + "email-send-request.json");
+		HttpEntity<CSPBillingDetailsRequest> entity = new HttpEntity<CSPBillingDetailsRequest>(
+				gson.fromJson(requestJSON, CSPBillingDetailsRequest.class), getDefaultHeaders());
+		ResponseEntity<String> response = restTemplate().exchange(createURLWithPort(ESTIMATED_CHARGES_URL),
+				HttpMethod.POST, entity, String.class);
+		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+	/*	assertEqualsJSONObjectStripOffTraceId((new JsonParser()).parse(response.getBody().trim()).getAsJsonObject(),
+				(new JsonParser())
+						.parse(fetchJSONFileContentAsString(
+								UAT_DATA_FOLDER + "cspbilling-estimated-charges-success-response-org.json"))
+						.getAsJsonObject());*/
+	}
+
+}

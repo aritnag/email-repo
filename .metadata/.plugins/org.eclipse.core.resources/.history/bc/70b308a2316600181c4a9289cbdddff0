@@ -1,0 +1,5 @@
+package com.vmware;
+
+public enum JSONType {
+	FILE, STRING, FILE_AS_OBJECT
+}

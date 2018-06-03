@@ -1,0 +1,10 @@
+package com.email.service.application.test.cases;
+
+import com.email.service.application.BaseAPITest;
+
+public class EmailServiceApplicationTest extends BaseAPITest {
+	private static final String EMAIL_URL_SEND = "/email/send/mail";
+	
+	
+
+}

@@ -1,0 +1,5 @@
+package com.email.service.application.config;
+
+public class EmailConfiguration {
+
+}

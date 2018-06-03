@@ -1,0 +1,5 @@
+package com.email.service.application.test.cases;
+
+public class EmailServiceApplicationTest {
+
+}

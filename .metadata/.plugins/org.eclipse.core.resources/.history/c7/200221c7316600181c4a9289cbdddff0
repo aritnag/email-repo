@@ -1,0 +1,16 @@
+package com.email.service.application;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.PropertySource;
+
+@EnableDiscoveryClient
+@SpringBootApplication(scanBasePackages = { "com.vmware.csp.billing", "com.vmware.csp.email" })
+@PropertySource({ "classpath:application-uat.properties", "classpath:CSPBillingServiceQueries.xml" })
+public class CSPBillingServiceTestApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(CSPBillingServiceTestApplication.class, args);
+	}
+}

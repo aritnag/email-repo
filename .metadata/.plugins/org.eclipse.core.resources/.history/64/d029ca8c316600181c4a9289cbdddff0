@@ -1,0 +1,98 @@
+package com.vmware.billing;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.vmware.BaseAPITest;
+import com.vmware.JSONType;
+import com.vmware.csp.billing.vo.CSPBillingDetailsRequest;
+
+public class CSPBillingApplicationTest extends BaseAPITest {
+	private static final String ESTIMATED_CHARGES_URL = "/billing/estimatedcharges";
+	private List<String> attributesToRemove = new ArrayList<>();
+
+	public CSPBillingApplicationTest() {
+		attributesToRemove.add("sid");
+		attributesToRemove.add("traceId");
+	}
+
+	@Test
+	public void testEstimatedChargesCSPBillingServiceORG() throws Exception {
+		String requestJSON = fetchJSONFileContentAsString(
+				UAT_DATA_FOLDER + "cspbilling-estimated-charges-success-request-org.json");
+		HttpEntity<CSPBillingDetailsRequest> entity = new HttpEntity<CSPBillingDetailsRequest>(
+				gson.fromJson(requestJSON, CSPBillingDetailsRequest.class), getDefaultHeaders());
+		ResponseEntity<String> response = restTemplate().exchange(createURLWithPort(ESTIMATED_CHARGES_URL),
+				HttpMethod.POST, entity, String.class);
+		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+	/*	assertEqualsJSONObjectStripOffTraceId((new JsonParser()).parse(response.getBody().trim()).getAsJsonObject(),
+				(new JsonParser())
+						.parse(fetchJSONFileContentAsString(
+								UAT_DATA_FOLDER + "cspbilling-estimated-charges-success-response-org.json"))
+						.getAsJsonObject());*/
+	}
+
+	@Test
+	public void testEstimatedChargesCSPBillingServiceSID() throws Exception {
+		String requestJSON = fetchJSONFileContentAsString(
+				UAT_DATA_FOLDER + "cspbilling-estimated-charges-success-request-sid.json");
+		Gson gson = new Gson();
+		HttpEntity<CSPBillingDetailsRequest> entity = new HttpEntity<CSPBillingDetailsRequest>(
+				gson.fromJson(requestJSON, CSPBillingDetailsRequest.class), getDefaultHeaders());
+		ResponseEntity<?> response = restTemplate().exchange(createURLWithPort(ESTIMATED_CHARGES_URL), HttpMethod.POST,
+				entity, Object.class);
+		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+	}
+
+	@Test
+	public void testStatementsCSPBillingServiceSID() throws Exception {
+		String requestJSON = fetchJSONFileContentAsString(
+				UAT_DATA_FOLDER + "cspbilling-statements-success-request-sid.json");
+		Gson gson = new Gson();
+		HttpEntity<CSPBillingDetailsRequest> entity = new HttpEntity<CSPBillingDetailsRequest>(
+				gson.fromJson(requestJSON, CSPBillingDetailsRequest.class), getDefaultHeaders());
+		ResponseEntity<?> response = restTemplate().exchange(createURLWithPort(ESTIMATED_CHARGES_URL), HttpMethod.POST,
+				entity, Object.class);
+		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+	}
+
+	@Test
+	public void testStatementsCSPBillingServiceORG() throws Exception {
+		String requestJSON = fetchJSONFileContentAsString(
+				UAT_DATA_FOLDER + "cspbilling-statements-success-request-org.json");
+		Gson gson = new Gson();
+		HttpEntity<CSPBillingDetailsRequest> entity = new HttpEntity<CSPBillingDetailsRequest>(
+				gson.fromJson(requestJSON, CSPBillingDetailsRequest.class), getDefaultHeaders());
+		ResponseEntity<?> response = restTemplate().exchange(createURLWithPort(ESTIMATED_CHARGES_URL), HttpMethod.POST,
+				entity, Object.class);
+		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+	}
+
+	private HttpHeaders getDefaultHeaders() {
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		httpHeaders.add("Accept", "application/json");
+		httpHeaders.add("Content-Type", "application/json");
+		return httpHeaders;
+	}
+
+	private String createURLWithPort(String uri) {
+		return "http://localhost:" + port + uri;
+	}
+}

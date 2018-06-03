@@ -1,0 +1,9 @@
+066833e5-540d-457c-816b-7e04c6783ccf\:credentialProfileName=Private S3 Bucket Example
+70e64b9d-b2e5-46ca-982d-3beff8f4dbd5\:credentialProfileName=default
+cognitoIdentityId=us-east-1\:5b95c890-d39a-440b-bb8f-986b5a7d992b
+cognitoIdentityPoolId=us-east-1\:d4fdc07f-94fd-4cc6-94fb-f903657f05c1
+credentialProfileAccountIds=70e64b9d-b2e5-46ca-982d-3beff8f4dbd5|066833e5-540d-457c-816b-7e04c6783ccf
+currentAccount=70e64b9d-b2e5-46ca-982d-3beff8f4dbd5
+currentDefaultAccount=
+ec2PreferencesImported=true
+eclipse.preferences.version=1
